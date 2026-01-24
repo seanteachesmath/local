@@ -93,7 +93,7 @@ shdir_listing_html()
 <h2>Directory Listing $doc_root</h2>
 <ul>"
 
-    for _dir in $( find $1 -maxdepth 1 | sort )
+    for _dir in $( find $1 -maxdepth 1 \( -name '.*' -prune  -o -print \) | sort )
     do
         local _dirname=$( basename $_dir )
         [ "$_dirname" = "index.html" ] && continue
@@ -127,7 +127,7 @@ shdir_create_index_file()
 
     [ "$SHDIR_DRY_RUN" = "yes" ] && suffix="[DRY RUN] "
 
-    for _dir in $( find $1 -maxdepth $depth -type d | sort -r )
+    for _dir in $( find $1 -maxdepth $depth -type d \( -name '.*' -prune  -o -print \) | sort -r )
     do
         echo -n "${suffix}Creating index.html for ${_dir}..."
 
